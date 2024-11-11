@@ -11,7 +11,14 @@ import {
 import ModeToggle from './mode-toggle';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import {
+  SignIn,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs';
+import { LayoutDashboard, Plus, LogIn } from 'lucide-react';
 
 export default function TopNav() {
   return (
@@ -32,18 +39,31 @@ export default function TopNav() {
       <div className="flex flex-grow items-center justify-end gap-1">
         <MenubarMenu>
           <MenubarTrigger className="text-base font-normal">
-            <Link href="/business/add">Add Business</Link>
+            <Link href="/business/add">
+              <span className="flex items-center">
+                <Plus size={16} className="mr-2" />
+                Add Business
+              </span>
+            </Link>
           </MenubarTrigger>
         </MenubarMenu>
 
         <MenubarMenu>
           <MenubarTrigger className="text-base font-normal">
-            <Link href="/dashboard">Dashboard</Link>
+            <Link href="/dashboard">
+              <span className="flex items-center">
+                <LayoutDashboard size={16} className="mr-2" />
+                <span>Dashboard</span>
+              </span>
+            </Link>
           </MenubarTrigger>
         </MenubarMenu>
 
         <SignedOut>
-          <SignInButton />
+          <span className="flex items-center">
+            <LogIn size={16} className="mr-2" />
+            <SignInButton />
+          </span>
         </SignedOut>
 
         <SignedIn>
