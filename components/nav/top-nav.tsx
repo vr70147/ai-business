@@ -19,8 +19,12 @@ import {
   UserButton,
 } from '@clerk/nextjs';
 import { LayoutDashboard, Plus, LogIn } from 'lucide-react';
+import { currentUser } from '@clerk/nextjs/server';
 
-export default function TopNav() {
+export default async function TopNav() {
+  // Hooks
+  const user = await currentUser();
+
   return (
     <Menubar>
       <div className="flex-none">
@@ -48,16 +52,18 @@ export default function TopNav() {
           </MenubarTrigger>
         </MenubarMenu>
 
-        <MenubarMenu>
-          <MenubarTrigger className="text-base font-normal">
-            <Link href="/dashboard">
-              <span className="flex items-center">
-                <LayoutDashboard size={16} className="mr-2" />
-                <span>Dashboard</span>
-              </span>
-            </Link>
-          </MenubarTrigger>
-        </MenubarMenu>
+        {user && (
+          <MenubarMenu>
+            <MenubarTrigger className="text-base font-normal">
+              <Link href="/dashboard">
+                <span className="flex items-center">
+                  <LayoutDashboard size={16} className="mr-2" />
+                  <span>Dashboard</span>
+                </span>
+              </Link>
+            </MenubarTrigger>
+          </MenubarMenu>
+        )}
 
         <SignedOut>
           <span className="flex items-center">
